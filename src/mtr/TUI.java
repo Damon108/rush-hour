@@ -16,7 +16,7 @@ public class TUI {
 
 	private Controller controller;
 	private Scanner stdIn;
-	
+
 	public static void main(String[] args) {
 		new TUI(new ImplementedController());
 	}

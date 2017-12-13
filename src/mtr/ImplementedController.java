@@ -28,10 +28,9 @@ public class ImplementedController implements Controller {
 		return stationMap;
 	}
 
-	
 	private void csvReader() throws IOException {
 		String splitBy = ",";
-		 line = " ";
+		line = " ";
 		stationMap = new HashMap<String, ArrayList<String>>(); // Creates a new
 																// HashMap
 
@@ -71,30 +70,26 @@ public class ImplementedController implements Controller {
 
 	}
 
- 
-	 
-	
-
 	public String listAllTermini() {
-	//	k.csvReader();
-	String termini = "";
+		// k.csvReader();
+		String termini = "";
 		System.out.println("List of all Termini");
 		for (Map.Entry<String, ArrayList<String>> entry : k.getStationMap().entrySet()) {
 			int lastStation = entry.getValue().size() - 1;
-			termini += entry.getKey() + " : " + entry.getValue().get(0) + " , " + entry.getValue().get(lastStation) + "\n";
+			termini += entry.getKey() + " : " + entry.getValue().get(0) + " , " + entry.getValue().get(lastStation)
+					+ "\n";
 		}
-		//System.out.println(line);
+		// System.out.println(line);
 		return termini;
 
 	}
 
 	public String listStationsInLine(String line) {
-	k.csvReader();
+		k.csvReader();
 		this.line = line;
 
 		ArrayList<String> Stations = new ArrayList<String>();
 
-		
 		for (Map.Entry<String, ArrayList<String>> entry : k.getStationMap().entrySet()) {
 
 			if (entry.getKey().equals(line)) {
@@ -119,17 +114,15 @@ public class ImplementedController implements Controller {
 	}
 
 	public String listAllDirectlyConnectedLines(String line) {
-  String directlyConencted = "";
+		String directlyConencted = "";
 		HashSet<String> hset1 = new HashSet<String>();
 		HashSet<String> hset2 = new HashSet<String>();
-
-		
 
 		for (String w : k.getStationMap().keySet()) {
 			if (line.matches(w)) {
 
 				hset2 = new HashSet<String>(k.getStationMap().get(line));
-              
+
 				break;
 
 			} else {
