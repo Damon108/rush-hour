@@ -10,7 +10,7 @@ public class TerminiFinder {
 
 	public void terminiFinder1() {
 		ReadFile k = new ReadFile();
-		k.something();
+		k.csvReader();
 		System.out.println("List of all Termini");
 		for (Map.Entry<String, ArrayList<String>> entry : k.getStationMap().entrySet()) {
 			int lastStation = entry.getValue().size() - 1;

@@ -17,7 +17,7 @@ public class ReadFile {
 		return stationMap;
 	}
 
-	public void something() {
+	public void csvReader() {
 		String splitBy = ",";
 		String line;
 		stationMap = new HashMap<String, ArrayList<String>>(); // Creates a new

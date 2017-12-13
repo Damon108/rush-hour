@@ -30,7 +30,7 @@ public class FindStations {
 		// ArrayList<String>>();
 		k = new ReadFile();
 		// listStationsInLine();
-		k.something();
+		k.csvReader();
 
 		ArrayList<String> Stations = new ArrayList<String>();
 

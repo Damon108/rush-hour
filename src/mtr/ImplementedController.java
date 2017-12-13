@@ -11,17 +11,27 @@ import java.util.HashSet;
 
 public class ImplementedController implements Controller {
 
-	public HashMap<String, ArrayList<String>> stationMap;
-	public BufferedReader br;
-	public ReadFile k;
+	private HashMap<String, ArrayList<String>> stationMap;
+	private BufferedReader br;
+	private ReadFile k;
 	private String line;
-	public HashSet<String> hset1;
-	public HashSet<String> hset2;
+	private HashSet<String> hset1;
+	private HashSet<String> hset2;
 
 	public ImplementedController() {
 		k = new ReadFile();
+		k.csvReader();
+	}
+
+	private HashMap<String, ArrayList<String>> getStationMap() {
+
+		return stationMap;
+	}
+
+	
+	private void csvReader() throws IOException {
 		String splitBy = ",";
-		line = " ";
+		 line = " ";
 		stationMap = new HashMap<String, ArrayList<String>>(); // Creates a new
 																// HashMap
 
@@ -61,53 +71,30 @@ public class ImplementedController implements Controller {
 
 	}
 
-	public HashMap<String, ArrayList<String>> getStationMap() {
-
-		return stationMap;
-	}
-
-	/*
-	 * public void something() { String splitBy = ","; line = " "; stationMap =
-	 * new HashMap<String,ArrayList<String>>(); // Creates a new HashMap
-	 * 
-	 * try { BufferedReader br = new BufferedReader(new
-	 * FileReader("MTRsystem_partial.csv")); // Creates new Buffered Reader
-	 * while((line = br.readLine()) != null){ // Checks to see if the line is
-	 * empty String[] station = line.split(splitBy); // if it isn't then the
-	 * words within the file are stored in the string array ArrayList<String>
-	 * stationStops = new ArrayList<String>(); // new Array List created
-	 * Collections.addAll(stationStops, station); //moves the strings stored in
-	 * the station array to the stationStops ArrayList stationStops.remove(0);
-	 * // removes the first element which is the station name from the ArrayList
-	 * stationMap.put(station[0], stationStops); //Maps the stations and the
-	 * stations stops to a HashMap
-	 * 
-	 * } br.close();
-	 * 
-	 * } catch (IOException e) {
-	 * 
-	 * }
-	 * 
-	 * }
-	 */
+ 
+	 
+	
 
 	public String listAllTermini() {
-		// k.something();
+	//	k.csvReader();
+	String termini = "";
 		System.out.println("List of all Termini");
 		for (Map.Entry<String, ArrayList<String>> entry : k.getStationMap().entrySet()) {
 			int lastStation = entry.getValue().size() - 1;
-			line = entry.getKey() + " : " + entry.getValue().get(0) + " , " + entry.getValue().get(lastStation);
+			termini += entry.getKey() + " : " + entry.getValue().get(0) + " , " + entry.getValue().get(lastStation) + "\n";
 		}
-		return line;
+		//System.out.println(line);
+		return termini;
 
 	}
 
 	public String listStationsInLine(String line) {
+	k.csvReader();
 		this.line = line;
 
 		ArrayList<String> Stations = new ArrayList<String>();
 
-		System.out.println(line + ": ");
+		
 		for (Map.Entry<String, ArrayList<String>> entry : k.getStationMap().entrySet()) {
 
 			if (entry.getKey().equals(line)) {
@@ -126,23 +113,23 @@ public class ImplementedController implements Controller {
 		for (int i = 0; i < Stations.size(); i++) {
 			// String stationLine = entry.getKey();
 			String stationName = Stations.get(i);
-			line += stationName + " ";
+			line += "\n" + stationName;
 		}
 		return line;
 	}
 
 	public String listAllDirectlyConnectedLines(String line) {
-
+  String directlyConencted = "";
 		HashSet<String> hset1 = new HashSet<String>();
 		HashSet<String> hset2 = new HashSet<String>();
 
-		String hello = "East Rail Line";
+		
 
-		for (String w : getStationMap().keySet()) {
-			if (hello.matches(w)) {
+		for (String w : k.getStationMap().keySet()) {
+			if (line.matches(w)) {
 
-				hset2 = new HashSet<String>(getStationMap().get(hello));
-
+				hset2 = new HashSet<String>(k.getStationMap().get(line));
+              
 				break;
 
 			} else {
@@ -151,16 +138,16 @@ public class ImplementedController implements Controller {
 
 		}
 
-		for (Map.Entry<String, ArrayList<String>> entry : getStationMap().entrySet()) {
+		for (Map.Entry<String, ArrayList<String>> entry : k.getStationMap().entrySet()) {
 
 			hset1 = new HashSet<String>(entry.getValue());
 			boolean result = !Collections.disjoint(hset1, hset2);
-			if (result == true && (!(entry.getKey().contains(hello)))) {
-				line += entry.getKey() + " ";
+			if (result == true && (!(entry.getKey().contains(line)))) {
+				directlyConencted += "\n" + entry.getKey() + " ";
 			}
 
 		}
-		return line;
+		return directlyConencted;
 	}
 
 	// TODO : THE KILLER MATE
