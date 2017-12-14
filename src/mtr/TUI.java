@@ -3,6 +3,7 @@
  */
 package mtr;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -17,7 +18,7 @@ public class TUI {
 	private Controller controller;
 	private Scanner stdIn;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		new TUI(new ImplementedController());
 	}
 
